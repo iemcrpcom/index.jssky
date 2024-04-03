@@ -1,0 +1,731 @@
+
+
+
+
+
+
+
+
+
+
+<script type="1e221395b23761739d167925-text/javascript">
+function onclick_but(str1,str2){
+
+
+var mstr1=str1;
+if (mstr1=="ed"){
+ var frsub=document.getElementById(str2)
+ frsub.ttype.value="Ed";
+
+ frsub.submit();
+}else{
+ var frsub=document.getElementById(str2)
+ frsub.ttype.value="Del";
+ frsub.submit();
+}
+}
+
+function ValidateExtensionDay( i1) {
+
+    var allowedFiles = [".pdf", ".pdf", ".pdf"];
+    var te1="filetoupload_"+i1;
+   // alert(te1);
+    var er1="lblError"+i1;
+    var fileUpload = document.getElementById(te1);
+    var lblError = document.getElementById(er1);
+    var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+    if (!regex.test(fileUpload.value.toLowerCase())) {
+        lblError.innerHTML = "Please upload files having extensions: <b>" + allowedFiles.join(', ') + "</b> only.";
+        return false;
+
+    }
+var inpFiles = document.getElementById(te1);
+for (var i = 0; i < inpFiles.files.length; ++i) {
+var size = inpFiles.files.item(i).size;
+	if (size>5000000){
+	var csize=size/1000;
+alert("Big File Size : Kindly reduce and try again. U want to upload " + csize+"KB file. Maximum allowable  size is:5MB");
+	return false;
+	}
+}
+
+    lblError.innerHTML = "";
+    return true;
+}
+</script>
+<P align="center" style="color:#990000;"><FONT color="#990000" size="5"><img src="Logo_iem280718.jpg" border="0">
+<head>
+<title>
+            CRP
+        </title>
+</head>
+<SCRIPT LANGUAGE="javascript" type="1e221395b23761739d167925-text/javascript">
+
+//Calender
+
+var months = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+var daysInMonth = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+var days = new Array("S", "M", "T", "W", "T", "F", "S");
+
+today = new getToday();
+var element_id;
+function getDays(month, year)
+{
+	// Test for leap year when February is selected.
+	if (1 == month)
+		return ((0 == year % 4) && (0 != (year % 100))) ||
+			(0 == year % 400) ? 29 : 28;
+	else
+		return daysInMonth[month];
+}
+
+function getToday()
+{
+	// Generate today's date.
+	this.now = new Date();
+	this.year = this.now.getFullYear() ; // Returned year XXXX
+	this.month = this.now.getMonth();
+	this.day = this.now.getDate();
+
+}
+
+
+function newCalendar()
+{
+	var parseYear = parseInt(document.all.year  [document.all.year.selectedIndex].text);
+
+	var newCal = new Date(parseYear , document.all.month.selectedIndex, 1);
+	var day = -1;
+	var startDay = newCal.getDay();
+	var daily = 0;
+
+	today = new getToday(); // 1st call
+	if ((today.year == newCal.getFullYear() ) &&   (today.month == newCal.getMonth()))
+	   day = today.day;
+	// Cache the calendar table's tBody section, dayList.
+	var tableCal = document.all.calendar.tBodies.dayList;
+
+	var intDaysInMonth =
+	   getDays(newCal.getMonth(), newCal.getFullYear() );
+
+	for (var intWeek = 0; intWeek < tableCal.rows.length;  intWeek++)
+		   for (var intDay = 0;
+			 intDay < tableCal.rows[intWeek].cells.length;
+			 intDay++)
+	 {
+		  var cell = tableCal.rows[intWeek].cells[intDay];
+
+		  // Start counting days.
+		  if ((intDay == startDay) && (0 == daily))
+			 daily = 1;
+
+		  // Highlight the current day.
+		  cell.style.color = (day == daily) ? "black" : "";
+		  if(day == daily)
+		  {
+				//document.all.todayday.innerText= "Today: " +  day + "/" +
+					(newCal.getMonth()+1) + "/" + newCal.getFullYear() ;
+				document.all.todayday.innerText= "Today: " +  newCal.getFullYear()+ "-" +
+					(newCal.getMonth()+1) + "-" + day ;
+
+		  }
+		  // Output the day number into the cell.
+		  if ((daily > 0) && (daily <= intDaysInMonth))
+			 cell.innerText = daily++;
+		  else
+			 cell.innerText = "";
+	   }
+
+}
+
+
+	 function getTodayDay()
+	 {
+			   // document.all[element_id].value = today.day + "/" + (today.month+1) +
+					"/" + today.year;
+			     document.all[element_id].value = today.year + "-" + (today.month+1) +
+					"-" + today.day;
+		        //document.all.calendar.style.visibility="hidden";
+				document.all.calendar.style.display="none";
+				document.all.year.selectedIndex =100;
+	            document.all.month.selectedIndex = today.month;
+	 }
+
+        function getDate()
+		 {
+            // This code executes when the user clicks on a day
+            // in the calendar.
+            if ("TD" == event.srcElement.tagName)
+               // Test whether day is valid.
+               if ("" != event.srcElement.innerText)
+			   {
+				 var mn = document.all.month.selectedIndex+1;
+    			 var Year = document.all.year [document.all.year.selectedIndex].text;
+				// document.all[element_id].value=event.srcElement.innerText+"-"+mn +"-"  +Year;
+			document.all[element_id].value=Year+"-"+mn +"-"+event.srcElement.innerText;
+		         //document.all.calendar.style.visibility="hidden";
+				 document.all.calendar.style.display="none";
+			 }
+		 }
+
+function GetBodyOffsetX(el_name, shift)
+{
+	var x;
+	var y;
+	x = 0;
+	y = 0;
+
+	var elem = document.all[el_name];
+	do
+	{
+		x += elem.offsetLeft;
+		y += elem.offsetTop;
+		if (elem.tagName == "BODY")
+			break;
+		elem = elem.offsetParent;
+	} while  (1 > 0);
+
+	shift[0] = x;
+	shift[1] = y;
+	return  x;
+}
+
+function SetCalendarOnElement(el_name)
+{
+	if (el_name=="")
+	el_name = element_id;
+	var shift = new Array(2);
+	GetBodyOffsetX(el_name, shift);
+	document.all.calendar.style.pixelLeft  = shift[0]; //  - document.all.calendar.offsetLeft;
+	document.all.calendar.style.pixelTop = shift[1] + 25 ;
+}
+
+
+
+function ShowCalendar(elem_name)
+{
+		if (elem_name=="")
+		elem_name = element_id;
+
+		element_id	= elem_name; // element_id is global variable
+		newCalendar();
+		SetCalendarOnElement(element_id);
+		//document.all.calendar.style.visibility = "visible";
+		document.all.calendar.style.display="inline";
+}
+
+function HideCalendar()
+{
+	//document.all.calendar.style.visibility="hidden";
+	document.all.calendar.style.display="none";
+}
+
+function toggleCalendar(elem_name)
+{
+	//if (document.all.calendar.style.visibility == "hidden")
+	if(document.all.calendar.style.display=="none")
+		ShowCalendar(elem_name);
+	else
+		HideCalendar();
+}
+
+
+//end Calender
+
+function localaddcp(){
+	form1.mpa_add1.value=form1.madd1.value;
+	form1.mpa_add2.value=form1.madd2.value;
+	form1.mpa_add3.value=form1.madd3.value;
+}
+
+
+
+function submit1_onClick(){
+/*
+form1.mmsubject.disabled=false;
+form1.mDegree.disabled=false;
+form1.mexName.disabled=false;
+form1.msem1.disabled=false;
+form1.msem1mon.disabled=false;
+form1.msem1year.disabled=false;
+form1.msem1attn.disabled=false;
+form1.msem1supl.disabled=false;
+form1.msem1rem.disabled=false;
+form1.msem2.disabled=false;
+form1.msem2mon.disabled=false;
+form1.msem2year.disabled=false;
+form1.msem2attn.disabled=false;
+form1.msem2supl.disabled=false;
+form1.msem2rem.disabled=false;
+form1.mygpa1.disabled=false;
+form1.msem3.disabled=false;
+form1.msem3mon.disabled=false;
+form1.msem3year.disabled=false;
+form1.msem3attn.disabled=false;
+form1.msem3supl.disabled=false;
+form1.msem3rem.disabled=false;
+form1.msem4.disabled=false;
+form1.msem4mon.disabled=false;
+form1.msem4year.disabled=false;
+form1.msem4attn.disabled=false;
+form1.msem4supl.disabled=false;
+form1.msem4rem.disabled=false;
+form1.mygpa2.disabled=false;
+
+form1.msem5.disabled=false;
+form1.msem5mon.disabled=false;
+form1.msem5year.disabled=false;
+form1.msem5attn.disabled=false;
+form1.msem5supl.disabled=false;
+form1.msem5rem.disabled=false;
+form1.msem6.disabled=false;
+form1.msem6mon.disabled=false;
+form1.msem6year.disabled=false;
+form1.msem6attn.disabled=false;
+form1.msem6supl.disabled=false;
+form1.msem6rem.disabled=false;
+form1.mygpa3.disabled=false;
+form1.msem7.disabled=false;
+form1.msem7mon.disabled=false;
+form1.msem7year.disabled=false;
+form1.msem7attn.disabled=false;
+form1.msem7supl.disabled=false;
+form1.msem7rem.disabled=false;
+form1.msem8.disabled=false;
+form1.msem8mon.disabled=false;
+form1.msem8year.disabled=false;
+form1.msem8attn.disabled=false;
+form1.msem8supl.disabled=false;
+form1.msem8rem.disabled=false;
+form1.mygpa4.disabled=false;
+form1.mdgpa.disabled=false;
+form1.mtotMarks.disabled=false;
+form1.mpassYear.disabled=false;
+form1.mpassMonth.disabled=false;
+form1.mjob1.disabled=false;
+form1.mjob2.disabled=false;
+form1.mjob3.disabled=false;
+form1.mjob4.disabled=false;
+form1.mjob5.disabled=false;
+
+form1.mjob1p.disabled=false;
+form1.mjob2p.disabled=false;
+form1.mjob3p.disabled=false;
+form1.mjob4p.disabled=false;
+form1.mjob5p.disabled=false;
+
+form1.mremark.disabled=false;
+form1.mcurjob.disabled=false;
+form1.mcuremail.disabled=false;
+*/
+
+//alert(form1.mexName.value);
+
+}
+function button1_onclick(){
+
+}
+
+
+function select4_onchange() {
+form1.mmsubject.value = form1.select4.value ;
+
+/*if (form1.select4.value=="CSE") ||( form1.select4.value=="ECE")||(form1.select4.value=="IT"){
+    form1.tDegree.value = "B.Tech"
+    }
+ else
+ form1.tDegree.value=form1.select4.value;*/
+ }
+
+function select3_onchange() {
+
+form1.mDegree.value = form1.select3.value ;
+}
+
+function select1_onchange() {
+
+form1.mexName.value = form1.select1.value ;
+}
+
+
+
+</SCRIPT>
+<body bgcolor="#dbe7fb">
+<p align="right" style="font-size:10pt;"><a href="index.html">Log Out</a></p>
+<p align="center" style="font-family:times new roman;font-size:24pt;">
+<b><u>Student Information</u></b>
+</p>
+<form name="fr2" id="fr2" method="post" action="studDisp_studpartcertificate.jsp">
+<center>
+<input type="submit" value="Click here for Display/Edit/Add New Cirtificate" style="background-color:#333300;color:#33ffff;">
+</center>
+</form>
+<form name="form1" action="studDisp_studpartUp.jsp" method="post" style="font-family:arial;font-size:12pt;">
+<P align="center" style="font-size:12pt;color:RED;"> &nbsp;Note: Please do not use following characters <br><br><b>+,?, %,\, <,>,=,`,~</b></P>
+<table border="1">
+<tr>
+<td bgcolor="#9494ff" style="color:#333300;background-color:#dedefa;">College Enrol.No</td>
+<td bgcolor="#a2a2ff" style="border-color:#dedefa;background-color:#dedefa;"><input type="text" size="20" value="12020002002060" id="menrlno_1" disabled maxlength="20" style="background-color:#f7f7cb;"> <FONT color="red"> *Not Editable</FONT>
+<img src="1708837907817.jpg" width="60" height="80">
+</td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">University Registration No</td>
+<td style="background-color:#b4b4ee;"><input type="text" size="15" value="104202305201096 of 2023-24" name="mreg_no" id="mreg_no" disabled maxlength="12" style="background-color:#f7f7cb;"> <FONT color="red"> *Not Editable</FONT></td>
+</tr>
+<tr>
+<td bgcolor="#a2a2ff" style="background-color:#dedefa;">Examination Roll No</td>
+<td bgcolor="#a2a2ff" style="background-color:#dedefa;"><input type="text" size="15" value="000" id="mroll_no" name="mroll_no" disabled maxlength="11" style="background-color:#f7f7cb;"> <FONT color="red"> *Not Editable</FONT></td>
+</tr>
+<tr>
+<td colspan="2" align="center" style="background-color:#b4b4ee;"><b>Personal Information</b></td>
+</tr>
+<tr>
+<td bgcolor="#a2a2ff" style="background-color:#dedefa;">Name</td>
+<td style="background-color:#dedefa;"><input type="text" size="60" value="Sumit Kumar Yadav" name="mname" id="mname" style="background-color:#f7f7cb;" readonly>- Not Editable </td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Stream</td>
+<td style="background-color:#b4b4ee;"><input type="text" size="7" name="mmsubject" id="mmsubject" value="CSE" readonly> - Not Editable
+Course :
+<input type="text" size="15" value="B.Tech" name="mDegree" id="mDegree" maxlength="15" readonly readonly style="background-color:#e6fcfc;"> - Not Editable
+</td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Student's Mobile No.(SMS)</td>
+<td style="background-color:#dedefa;"><input type="text" size="11" value="9064082375" id="mstud_mobno" name="mstud_mobno" style="background-color:#f7f7cb;">-All the information will be sent to this mobile no</td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Student's E-Mail :</td>
+<td style="background-color:#dedefa;"><input type="text" name="mcuremail" size="40" maxlength="100" value="sumit7799yadav@gmail.com" id="mcuremail" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Guardian Mobile No.(SMS)</td>
+<td style="background-color:#dedefa;"><input type="text" size="11" value="8529903358" id="mgurd_mobno" name="mgurd_mobno" maxlength="11" style="background-color:#f7f7cb;"> </td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Full Local Address</td>
+<td style="background-color:#dedefa;"><input type="text" size="30" value="Rambagan RamKrishna colony Raniganj" id="madd1" name="madd1" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">&nbsp;</td>
+<td style="background-color:#dedefa;"><input type="text" size="30" value="Barddhaman West Bengal " name="madd2" id="madd2" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">&nbsp;</td>
+<td style="background-color:#dedefa;"><input type="text" size="30" value=" " id="madd3" name="madd3" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Pin</td>
+<td style="background-color:#dedefa;"><input type="text" size="30" value="713358" id="ma_pin" name="ma_pin" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">State</td>
+<td style="background-color:#dedefa;"><input type="text" size="30" value=" West Bengal" id="mstate" name="mstate" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Country</td>
+<td style="background-color:#dedefa;"><input type="text" size="30" value="India " id="mcountry" name="mcountry" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Res.Ph</td>
+<td style="background-color:#b4b4ee;"><input type="text" size="20" value name="mphone" id="mphone" maxlength="80" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Gender</td>
+<td style="background-color:#dedefa;"><input type="text" size="8" value="M" id="msex" name="msex" maxlength="1" style="background-color:#f7f7cb;">Write only M or F</td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Blood Group</td>
+<td style="background-color:#dedefa;"><select id="tbloodgr" name="tbloodgr">
+<option></option>
+<option value="A+">A+</option>
+<option value="A-">A-</option>
+<option value="B+">B+</option>
+<option value="B-">B-</option>
+<option value="AB+">AB+</option>
+<option value="AB-">AB-</option>
+<option value="O+" selected>A+</option>
+<option value="O-">O-</option>
+</select></td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Date of Birth</td>
+<td style="background-color:#b4b4ee;">
+
+<INPUT type="text" id="mdateofb" name="mdateofb" size="15" onClick="if (!window.__cfRLUnblockHandlers) return false; toggleCalendar('mdateofb')" value="2003-09-08" style="background-color:#f7f7cb;" data-cf-modified-1e221395b23761739d167925-> (Format : YYYY-MM-DD EX.1997-04-14)
+<a href="JavaScript:;" onClick="if (!window.__cfRLUnblockHandlers) return false; toggleCalendar('mdateofb')" data-cf-modified-1e221395b23761739d167925-><font size="2">Calendar<img src="arrow.jpg" border="0" height="15/"></font></a>
+<TABLE bgColor="#ffffff" border="1" cellPadding="0" cellSpacing="3" id="calendar" style="DISPLAY: none; POSITION: absolute; Z-INDEX: 4">
+<TBODY>
+<TR>
+<TD colSpan="7" vAlign="center">
+
+<SELECT id="month" onchange="if (!window.__cfRLUnblockHandlers) return false; newCalendar()" data-cf-modified-1e221395b23761739d167925->
+<SCRIPT language="JavaScript" type="1e221395b23761739d167925-text/javascript">
+		// Output months into the document.
+		// Select current month.
+		for (var intLoop = 0; intLoop < months.length; intLoop++)
+			document.write("<OPTION " +	(today.month == intLoop ? "Selected" : "") + ">" + months[intLoop]);
+		</SCRIPT>
+</SELECT>
+
+<SELECT id="year" onchange="if (!window.__cfRLUnblockHandlers) return false; newCalendar()" data-cf-modified-1e221395b23761739d167925->
+<SCRIPT language="JavaScript" type="1e221395b23761739d167925-text/javascript">
+		// Output years into the document.
+		// Select current year.
+		for (var intLoop = 1960; intLoop < 2080; intLoop++)
+			document.write("<OPTION " + (today.year == intLoop ? "Selected" : "") + ">" + intLoop);
+		</SCRIPT>
+</SELECT>
+</TD>
+</TR>
+<TR class="days">
+
+<SCRIPT language="JavaScript" type="1e221395b23761739d167925-text/javascript">
+	// Output days.
+	for (var intLoop = 0; intLoop < days.length; intLoop++)
+		document.write("<TD>" + days[intLoop] + "</TD>");
+	</SCRIPT>
+</TR>
+<TBODY class="dates" id="dayList" onclick="if (!window.__cfRLUnblockHandlers) return false; getDate('')" vAlign="center" data-cf-modified-1e221395b23761739d167925->
+
+<SCRIPT language="JavaScript" type="1e221395b23761739d167925-text/javascript">
+	for (var intWeeks = 0; intWeeks < 6; intWeeks++)
+	{
+		document.write("<TR>");
+		for (var intDays = 0; intDays < days.length; intDays++)
+			document.write("<TD></TD>");
+		document.write("</TR>");
+	}
+  </SCRIPT>
+</TBODY>
+<TBODY>
+<TR>
+<TD class="today" colSpan="5" id="todayday" onclick="if (!window.__cfRLUnblockHandlers) return false; getTodayDay()" data-cf-modified-1e221395b23761739d167925-></TD>
+<TD align="right" colSpan="2"><A href="javascript:HideCalendar();"><SPAN style="COLOR: red; FONT-SIZE: 12px"><B>Hide</B></SPAN></A></TD>
+</TR>
+</TBODY>
+</TABLE>
+</td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Year of Admission</td>
+<td style="background-color:#dedefa;"><input type="text" size="4" value="2023" id="mdateofa" name="mdateofa" style="background-color:#f7f7cb;" readonly></td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Father's Name</td>
+<td style="background-color:#b4b4ee;"><input type="text" size="60" value="Munshi Yadav" name="mfname" id="mfname" maxlength="100" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Father's Email</td>
+<td style="background-color:#dedefa;"><input type="text" size="80" value="MunshiYadav1134@gmail.com" id="tfatherMail" name="tfatherMail" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Mother's Name</td>
+<td style="background-color:#b4b4ee;"><input type="text" size="60" value="Komal Yadav" name="mmothname" id="mmothname" maxlength="100" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Mother's Email</td>
+<td style="background-color:#dedefa;"><input type="text" size="80" value="No Data " id="tmothemail" name="tmothemail" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr><td colspan="2" align="center"><input type="checkbox" id="chksameloc" name="chksameloc" onclick="if (!window.__cfRLUnblockHandlers) return false; localaddcp()" data-cf-modified-1e221395b23761739d167925-> Same as local address</td></tr>
+<tr>
+<td style="background-color:#dedefa;">Permanent Address</td>
+<td style="background-color:#dedefa;"><input type="text" size="30" value="Rambagan RamKrishna colony Raniganj" id="mpa_add1" name="mpa_add1" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">&nbsp;</td>
+<td style="background-color:#dedefa;"><input type="text" size="30" value="Barddhaman West Bengal " id="mpa_add2" name="mpa_add2" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">&nbsp;</td>
+<td style="background-color:#dedefa;"><input type="text" size="30" value=" " id="mpa_add3" name="mpa_add3" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Permanent Address Ph. No.</td>
+<td style="background-color:#b4b4ee;"><input type="text" size="20" value=" " id="mpa_tele" name="mpa_tele" maxlength="80" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Father/Guardian Telephone No(Office) </td>
+<td style="background-color:#dedefa;"><input type="text" value="NO DATA " id="mtele_o" name="mtele_o" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Guardian's Email</td>
+<td style="background-color:#dedefa;"><input type="text" size="80" value="MunshiYadav1134@gmail.com" id="tgrdmail" name="tgrdmail" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Designation</td>
+<td style="background-color:#b4b4ee;"><input type="text" value="NO DATA " id="mdesig" name="mdesig" maxlength="200" style="background-color:#f7f7cb;" size="60"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Guardian's Name</td>
+<td style="background-color:#dedefa;"><input type="text" value="Munshi Yadav " id="mgurd_name" name="mgurd_name" maxlength="100" style="background-color:#f7f7cb;" size="60"></td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Relation</td>
+<td style="background-color:#b4b4ee;"><input type="text" value="FATHER " id="mrele" name="mrele" maxlength="10" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Rank</td>
+<td style="background-color:#dedefa;"><input type="text" value="6034" id="mrank" name="mrank" maxlength="10" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+
+<td style="background-color:#b4b4ee;">&nbsp;</td>
+<td style="background-color:#b4b4ee;">&nbsp;</td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="font-size:14pt;background-color:#dedefa;" valign="middle" align="center">School/College
+Information</td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Class 10 percentage(%)</td>
+<td style="background-color:#b4b4ee;"><input type="text" size="8" value="75.2" id="mmadhyamik" name="mmadhyamik" maxlength="8" style="background-color:#f7f7cb;"> Year of Passing : <input type="text" size="4" value="2021" id="mmyear" name="mmyear" maxlength="4" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Name of Board</td>
+<td style="background-color:#dedefa;"><input type="text" size="10" value="CBSE" id="mmboard" name="mmboard" maxlength="10" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">School Name</td>
+<td style="background-color:#b4b4ee;"><input type="text" size="50" value="Millia English College" id="mmschool" name="mmschool" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">HS /Class 12 percentage(%)</td>
+<td style="background-color:#dedefa;"><input type="text" size="8" value="78.0" id="mhs" name="mhs" maxlength="8" style="background-color:#f7f7cb;"> Year of Passing : <input type="text" size="4" value="2023" id="mhyear" name="mhyear" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Board</td>
+<td style="background-color:#b4b4ee;"><input type="text" size="10" value="CBSE" id="mhboard" name="mhboard" maxlength="10" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">School</td>
+<td style="background-color:#dedefa;"><input type="text" size="50" value="Millia English School" id="mhschool" name="mhschool" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Other/Diploma</td>
+<td style="background-color:#b4b4ee;"><input type="text" size="20" value=" " id="mother" name="mother" maxlength="20" style="background-color:#f7f7cb;"> Year of Passing : <input type="text" size="4" value="0" id="moyear" name="moyear" maxlength="4" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;"> Board/University</td>
+<td style="background-color:#dedefa;"><input type="text" size="50" value=" " id="moboard" name="moboard" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#b4b4ee;">Name of Institution</td>
+<td style="background-color:#b4b4ee;"><input type="text" size="50" value=" " id="moInstitution" name="moInstitution" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">percentage(%) </td>
+<td style="background-color:#dedefa;"><input type="text" size="8" value="0.0" id="moMarks" name="moMarks" maxlength="8" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td colspan="2" align="center" style="background-color:#b4b4ee;">Final Year Project Details</td>
+</tr>
+<tr>
+<td colspan="2" align="center" style="background-color:#b4b4ee;">Instruction: Please filled up all project fields and update it. After that you will be able to upload your project file as pdf format. <br>Size is max 10MB <br> Please do not use following characters
++,?, %,\, <,>,=,`,~ <br> In any fileds </td>
+</tr>
+<tr>
+<td colspan="2" align="center" style="background-color:#b4b4ee;">No File Uploaded Still</td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Project Title:</td>
+<td style="background-color:#dedefa;"><input type="text" size="100" value id="tproj_head" name="tproj_head" maxlength="250" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Project Synopsis</td>
+<td style="background-color:#dedefa;"><textarea id="tproj_desc" name="tproj_desc" style="background-color:#f7f7cb;" rows="10" cols="80"></textarea></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Project Guide</td>
+<td style="background-color:#dedefa;">
+<select id="tproj_guide_user" name="tproj_guide_user">
+<option></option>
+<option value="anupam">anupam->Anupam Mondal(CSE)</option>
+<option value="bavrabi">bavrabi->BAVRABI GHOSH(CSE)</option>
+<option value="bdebika">bdebika->Dr. Debika Bhattacharyya(CSE)</option>
+<option value="darosa">darosa->Darothi Sarkar(CSE)</option>
+<option value="G1016RS">G1016RS->ROUNAK SAHA(CSE)</option>
+<option value="G1021MG">G1021MG->Monalisa Ghosh(CSE)</option>
+<option value="G1204pp">G1204pp->prithwineel paul(CSE)</option>
+<option value="G1240AB">G1240AB->Anindita Das Bhattacharjee(CSE)</option>
+<option value="G1251RD">G1251RD->Rakesh Das(CSE)</option>
+<option value="G1252AC">G1252AC->Ayan Chaudhuri(CSE)</option>
+<option value="G1262BB">G1262BB->Bivas Bhaumik(CSE)</option>
+<option value="G1268PLS">G1268PLS->Pragna Labani Sikdar(CSE)</option>
+<option value="G1701SRC">G1701SRC->Soumi Ray Chaudhuri(CSE)</option>
+<option value="G1703DR">G1703DR->Debapriya Roy(CSE)</option>
+<option value="G1973AP">G1973AP->Arup Sau(CSE)</option>
+<option value="G1975KD">G1975KD->KOUSHIK DUTTA(CSE)</option>
+<option value="G1976SS">G1976SS->Sayan Sarkar(CSE)</option>
+<option value="G1977AK">G1977AK->Dr. Ardhendu Kundu(CSE)</option>
+<option value="G1978KS">G1978KS->Krishnadas Saha(CSE)</option>
+<option value="G1979AP">G1979AP->Apurba Paul(CSE)</option>
+<option value="G1980BB">G1980BB->BIJOYINI BAGCHI(CSE)</option>
+<option value="G1984GB">G1984GB->Ganga Bhattacharjee(CSE)</option>
+<option value="kaushik">kaushik->Kaushik Banerjee(CSE)</option>
+<option value="monalisad">monalisad->Monalisa Dey(CSE)</option>
+<option value="pinaki">pinaki->Pinaki Karmakar(CSE)</option>
+<option value="samahato">samahato->Sainik Kumar Mahata(CSE)</option>
+<option value="shreemu">shreemu->Shreejita Mukherjee(CSE)</option>
+<option value="somadas">somadas->Soma Das(CSE)</option>
+<option value="subhar">subhar->Shubhasri Roy(CSE)</option>
+<option value="sukanya">sukanya->Sukanya Mukherjee(CSE)</option>
+</select>
+</td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Project Authority</td>
+<td style="background-color:#dedefa;"><input type="text" size="80" value="Institute of Engineering and Management,Kolkata" id="tproj_authority" name="tproj_authority" maxlength="250" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Project Status</td>
+<td style="background-color:#dedefa;"><input type="text" size="20" value id="tproj_status" name="tproj_status" maxlength="100" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Project Area</td>
+<td style="background-color:#dedefa;"><input type="text" size="80" value id="tproj_area" name="tproj_area" maxlength="250" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td colspan="2" align="center" style="background-color:#b4b4ee;">&nbsp;</td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Aadhar No:</td>
+<td style="background-color:#dedefa;"><input type="text" size="20" value="" id="taadharno" name="taadharno" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Guardian's PAN:</td>
+<td style="background-color:#dedefa;"><input type="text" size="20" value="" id="tpan" name="tpan" maxlength="50" style="background-color:#f7f7cb;"></td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Hostel Name :</td>
+<td style="background-color:#dedefa;">
+<select id="thostelName" name="thostelName">
+<option value="dayScholar" selected>dayScholar</option>
+<option value="iemhostel">iemhostel</option>
+</select>
+</td>
+</tr>
+<tr>
+<td style="background-color:#dedefa;">Category :</td>
+<td style="background-color:#dedefa;">
+<select id="mcata" name="mcata">
+<option value="Gen">Obc</option>
+<option value="Minority">Minority</option>
+<option value="PC">PC</option>
+<option value="SC">SC</option>
+<option value="ST">ST</option>
+</select>
+Note: Certificate must be produced for SC/ST/OBC/MINORITY</td>
+</tr>
+</table>
+<input type="submit" value="Update" onClick="if (!window.__cfRLUnblockHandlers) return false; return submit1_onClick()" style="background-color:#333300;color:#33ffff;" desabled data-cf-modified-1e221395b23761739d167925->
+
+</form>
+<p>
+<center><a href="DeatilsPage.html" style="font-size:18pt;"><img src="home.gif" border="0"></a>
+</center>
+</p>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="1e221395b23761739d167925-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"86d72af35bda8990","version":"2024.3.0","token":"6cccc067324f41cc92cbc7b3d24cb4ec"}' crossorigin="anonymous"></script>
+</body>

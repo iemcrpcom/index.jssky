@@ -1,0 +1,95 @@
+
+
+
+
+
+
+
+
+<P align=center style="color:#990000;"><FONT
+ color="#990000" size=5><img src=Logo_iem280718.jpg border="0">
+    <head>
+        <title>
+            CRM-User Educational Data
+        </title>
+    </head>
+<script>
+function onclick_but(str1,str2){
+
+
+var mstr1=str1;
+if (mstr1=="ed"){
+ var frsub=document.getElementById(str2)
+ frsub.ttype.value="Ed";
+
+ frsub.submit();
+}else{
+ var frsub=document.getElementById(str2)
+ frsub.ttype.value="Del";
+ frsub.submit();
+}
+}
+</script>
+
+
+
+
+
+
+    <body bgcolor="#dbe7fb">
+<p align="right" style="font-size:10pt;"  ><a href="index.html">Log Out</a></p>
+<table cellpadding="0" cellspacing="0" width="90%">
+<tr>
+<td>
+&nbsp;
+</td>
+<td>
+<script type="text/javascript">
+    function ValidateExtension() {
+    	//alert("hi");
+        var allowedFiles = [".jpg"];
+        var fileUpload = document.getElementById("tupload1");
+        var lblError = document.getElementById("lblError");
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+        if (!regex.test(fileUpload.value.toLowerCase())) {
+            lblError.innerHTML = "Please upload files having extensions: <b>" + allowedFiles.join(', ') + "</b> only.";
+            return false;
+
+        }
+var inpFiles = document.getElementById('tupload1');
+for (var i = 0; i < inpFiles.files.length; ++i) {
+    var size = inpFiles.files.item(i).size;
+	if (size>30000){
+	var csize=size/1000;
+    alert("Big File Size : Kindly reduce and try again. You want to upload " + csize+"KB file. Maximum allowable  size is:30KB");
+	return false;
+	}
+}
+
+        lblError.innerHTML = "";
+        return true;
+    }
+</script><form id="form2" name="form2" method="post" action="studPhotoUploadUp.jsp" enctype="multipart/form-data" onsubmit="return validation(this)">
+<table cellpadding="0" cellspacing="0">
+<tr><td>Select file for upload<br>Max size 30KB</td>
+
+<td><input type=file id="tupload1" name="tupload1"  ><br><font color="#B26803">Only jpg file allowed</font><br />
+<span id="lblError" style="color: red;"></span>
+<br />
+
+</td>
+<td ><input type=submit name="fsubmit1" id="fsubmit1" value=" Click here for upLoad only jpg file" onclick="return ValidateExtension()"></td></tr>
+
+</table>
+<div id="valid_msg"/>
+</form>
+</td>
+</tr>
+</table>
+
+
+
+    <p>
+    <center><a href="DeatilsPage.html" style="font-size:18pt;"><img src="home.gif" border="0"></a>
+    <A HREF="DeatilsPage.html" style="font-size:18pt;"><img src="back.gif" border="0"> </A>
+    </center> </p>

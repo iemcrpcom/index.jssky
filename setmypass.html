@@ -1,0 +1,75 @@
+
+
+
+
+
+
+<HTML>
+<HEAD>
+<TITLE>
+Change Password
+</TITLE>
+</HEAD>
+<SCRIPT ID="clientEventHandlersJS" LANGUAGE="javascript" type="dd639901cdb9bc1eb4981330-text/javascript">
+<!--
+function submit1_onclick(){
+var mpass1=form1.text2.value;
+var mpass2=form1.text3.value;
+ if (mpass1.length==0){
+    alert("Password cannot blank");
+    return false;
+ }
+if (mpass2.length==0){
+    alert("Password cannot blank");
+    return false;
+ }
+}
+</script>
+<BODY bgColor="#dbe7fb" style="font-family:arial;background-color:#dbe7fb;">
+<p align="right" style="font-size:10pt;"><a href="index.html">Log Out</a></p>
+<p style="font-family:arial;font-size:8pt;" align="right">
+  <!-- date added here -->
+  <a type="text" id="date" name="date" />
+
+  <script>
+      var today = new Date();
+      var yyyy = today.getFullYear();
+      var mm = today.getMonth() + 1;
+      var dd = today.getDate();
+      if (mm < 10) {
+          mm = "0" + mm;
+      }
+      if (dd < 10) {
+          dd = "0" + dd;
+      }
+      const currentTime = new Date();
+      const hours = currentTime.getHours().toString().padStart(2, '0');
+      const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+      const sec = currentTime.getSeconds().toString().padStart(2,'0');
+      const formattedTime = `${hours}:${minutes}:${sec}`;
+      var formattedDate = dd + "-" + mm + "-" + (yyyy % 200);
+      document.getElementById("date").innerHTML =
+          "Logged Date is " + formattedDate + " Time is "+formattedTime;
+  </script>
+</p>
+<P align="center" style="color:#990000;"><FONT color="#990000" size="5" style="font-family:arial;font-size:12pt;"><img src="Logo_iem280718.jpg" border="0">
+<center style="font-size:12pt;color:#3b2600;font-family:arial;background-color:#badbf0;">Welcome Sumit Kumar Yadav Your Enrl.No. is 12020002002060, using College Resource Planning, Your Computer No is :143.201.104.13, 212.39.44.108
+</center>
+</p>
+<form method="post" name="form1" action="studPassChange.jsp">
+<center><table style="font-family:arial;font-size:10pt;color:#03037d;">
+<tr><td>Type Old Password</td><td><input type="password" name="text1" size="10" maxlength="10"></td></tr>
+<tr style="color:#f74f06;"><td>Type New Password</td><td><input type="password" name="text2" size="10" maxlength="10"> Alphabet & Numaric only, Maximum length 10 Characters</td></tr>
+<tr style="color:#f74f06;"><td>Re-Type New Password</td><td><input type="password" name="text3" size="10" maxlength="10"></td></tr>
+<tr style="color:#f74f06;"><td colspan="2"><INPUT id="submit1" type="submit" value="Change Password" name="submit1" onClick="if (!window.__cfRLUnblockHandlers) return false; return submit1_onclick()" data-cf-modified-dd639901cdb9bc1eb4981330-></td>
+</tr>
+</table>
+</center>
+</form>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="dd639901cdb9bc1eb4981330-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"86d7271e3a9440a5","version":"2024.3.0","token":"6cccc067324f41cc92cbc7b3d24cb4ec"}' crossorigin="anonymous"></script>
+</body>
+<p>
+<center><a href="DeatilsPage.html" style="font-size:18pt;"><img src="home.gif" border="0"></a>
+<A HREF="DeatilsPage.html" style="font-size:18pt;"><img src="back.gif" border="0"> </A>
+</center> </p>
+%>
